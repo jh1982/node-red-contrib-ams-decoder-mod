@@ -59,15 +59,15 @@ elements = hex_to_dec(msg.payload.substr((index+2),2)) // Leser av antall elemen
   // Datetime format: 2023-01-10T18:00:00
   if (elements === 14 || elements === 18) {
     listType = 'list3';
-    obj.meterDate = getAmsTime(msg, index += 12);
+    Obis_list.meterDate = getAmsTime(msg, index += 12);
     index += 14;
-    obj.lastMeterConsumption = hex_to_dec(msg.payload.substr(index += 12, 8)) / 1000;
-    obj.lastMeterProduction = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
-    obj.lastMeterConsumptionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
-    obj.lastMeterProductionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
-    obj.freshHour = obj.meterDate.substr(14, 2) === '00';
-    obj.freshDay = obj.meterDate.substr(11, 5) === '00:00';
-    obj.isFirstDayOfMonth = (obj.meterDate.substr(8, 2) === '01' && obj.freshDay);
+    Obis_list.lastMeterConsumption = hex_to_dec(msg.payload.substr(index += 12, 8)) / 1000;
+    Obis_list.lastMeterProduction = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.lastMeterConsumptionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.lastMeterProductionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.freshHour = Obis_list.meterDate.substr(14, 2) === '00';
+    Obis_list.freshDay = Obis_list.meterDate.substr(11, 5) === '00:00';
+    Obis_list.isFirstDayOfMonth = (Obis_list.meterDate.substr(8, 2) === '01' && Obis_list.freshDay);
   }
 function hex_to_dec(str1)
     {
