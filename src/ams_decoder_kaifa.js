@@ -1,3 +1,4 @@
+const { hex2Ascii, getAmsTime } 
 module.exports = function(RED) {
     function ams_decoder_kaifa(config) {
         RED.nodes.createNode(this,config);
