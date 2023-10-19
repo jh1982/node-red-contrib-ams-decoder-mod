@@ -14,42 +14,42 @@ elements = hex_to_dec(msg.payload.substr((index+2),2)) // Leser av antall elemen
  // Process the elements based on their count
  if (elements === 1) {
     listType = 'list1';
-    Obis_list.act_pow_pos = hex2Dec(msg.payload.substr(index + 6, 8)) / 1000;
+    Obis_list.act_pow_pos = hex_to_dec(msg.payload.substr(index + 6, 8)) / 1000;
   }
 
   if (elements >= 9) {
     index = index + 6;
-    l = hex2Dec(msg.payload.substr(index, 2)) * 2;
+    l = hex_to_dec(msg.payload.substr(index, 2)) * 2;
     Obis_list.obis_list_version = hex_to_ascii(msg.payload.substr(index + 2, l));
     index += 4 + l;
-    l = hex2Dec(msg.payload.substr(index, 2)) * 2;
+    l = hex_to_dec(msg.payload.substr(index, 2)) * 2;
     Obis_list.meter_ID = hex_to_ascii(msg.payload.substr(index + 2, l));
     index += 4 + l;
-    l = hex2Dec(msg.payload.substr(index, 2)) * 2;
+    l = hex_to_dec(msg.payload.substr(index, 2)) * 2;
     Obis_list.meter_model = hex_to_ascii(msg.payload.substr(index + 2, l));
     index += 4 + l;
-    Obis_list.act_pow_pos = hex2Dec(msg.payload.substr(index, 8)) / 1000;
-    Obis_list.act_pow_posProduction = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    Obis_list.act_pow_posReactive = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    Obis_list.act_pow_posProductionReactive = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.act_pow_pos = hex_to_dec(msg.payload.substr(index, 8)) / 1000;
+    Obis_list.act_pow_posProduction = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.act_pow_posReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.act_pow_posProductionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
   }
 
   if (elements === 9 || elements === 14) {
     listType = 'list2';
     index += 0;
-    Obis_list.curr_L1 = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    Obis_list.volt_L1 = hex2Dec(msg.payload.substr(index += 10, 8)) / 10;
+    Obis_list.curr_L1 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.volt_L1 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 10;
   }
 
   if (elements === 13 || elements === 18) {
     listType = 'list2';
     index += 0;
-    Obis_list.curr_L1 = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    Obis_list.curr_L2 = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    Obis_list.curr_L3 = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    Obis_list.volt_L1 = hex2Dec(msg.payload.substr(index += 10, 8)) / 10;
-    Obis_list.volt_L2 = hex2Dec(msg.payload.substr(index += 10, 8)) / 10;
-    Obis_list.volt_L3 = hex2Dec(msg.payload.substr(index += 10, 8)) / 10;
+    Obis_list.curr_L1 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.curr_L2 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.curr_L3 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    Obis_list.volt_L1 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 10;
+    Obis_list.volt_L2 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 10;
+    Obis_list.volt_L3 = hex_to_dec(msg.payload.substr(index += 10, 8)) / 10;
 
     if (Obis_list.volt_L2 === 0) {
       Obis_list.volt_L2 = (Math.sqrt((Obis_list.volt_L1 - Obis_list.volt_L3 * 0.5) ** 2 + (Obis_list.volt_L3 * 0.866) ** 2)).toFixed(0) * 1;
@@ -61,10 +61,10 @@ elements = hex_to_dec(msg.payload.substr((index+2),2)) // Leser av antall elemen
     listType = 'list3';
     obj.meterDate = getAmsTime(msg, index += 12);
     index += 14;
-    obj.lastMeterConsumption = hex2Dec(msg.payload.substr(index += 12, 8)) / 1000;
-    obj.lastMeterProduction = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    obj.lastMeterConsumptionReactive = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
-    obj.lastMeterProductionReactive = hex2Dec(msg.payload.substr(index += 10, 8)) / 1000;
+    obj.lastMeterConsumption = hex_to_dec(msg.payload.substr(index += 12, 8)) / 1000;
+    obj.lastMeterProduction = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    obj.lastMeterConsumptionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
+    obj.lastMeterProductionReactive = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
     obj.freshHour = obj.meterDate.substr(14, 2) === '00';
     obj.freshDay = obj.meterDate.substr(11, 5) === '00:00';
     obj.isFirstDayOfMonth = (obj.meterDate.substr(8, 2) === '01' && obj.freshDay);
