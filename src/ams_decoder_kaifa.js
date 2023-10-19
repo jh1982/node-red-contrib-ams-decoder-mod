@@ -59,7 +59,6 @@ elements = hex_to_dec(msg.payload.substr((index+2),2)) // Leser av antall elemen
   // Datetime format: 2023-01-10T18:00:00
   if (elements === 14 || elements === 18) {
     listType = 'list3';
-    Obis_list.date_time = (year + " " + month + " " + day + " " + hour + ":" + min + ":" + sek)
     index += 14;
     Obis_list.lastMeterConsumption = hex_to_dec(msg.payload.substr(index += 12, 8)) / 1000;
     Obis_list.lastMeterProduction = hex_to_dec(msg.payload.substr(index += 10, 8)) / 1000;
